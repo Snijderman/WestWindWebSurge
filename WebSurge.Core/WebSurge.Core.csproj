@@ -53,9 +53,6 @@
     <Reference Include="Westwind.RazorHosting, Version=3.3.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Westwind.RazorHosting.3.3.9\lib\net45\Westwind.RazorHosting.dll</HintPath>
     </Reference>
-    <Reference Include="Westwind.Utilities, Version=3.0.49.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.49.6\lib\net46\Westwind.Utilities.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\App.cs" />
@@ -67,7 +64,6 @@
     <Compile Include="RequestWriter.cs" />
     <Compile Include="Support\PostmanIntegration.cs" />
     <Compile Include="Support\SiteValidator.cs" />
-    <Compile Include="Support\ApplicationUpdater.cs" />
     <Compile Include="Configuration\CheckForUpdates.cs" />
     <Compile Include="Configuration\StressTesterConfiguration.cs" />
     <Compile Include="Configuration\UrlCaptureConfiguration.cs" />
@@ -86,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Westwind.Utilities\Westwind.Utilities.csproj">
+      <Project>{eb838760-6018-4ec5-8ec1-a2803d7432ac}</Project>
+      <Name>Westwind.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

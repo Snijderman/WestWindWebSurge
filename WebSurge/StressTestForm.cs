@@ -11,7 +11,6 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WebSurge.Core;
 using WebSurge.Editor;
 using WebSurge.Support;
 using Westwind.Utilities;
@@ -88,12 +87,9 @@ namespace WebSurge
 
 
         FileSystemWatcher Watcher { get; set; }
-        public Splash Splash { get; set; }
 
         public StressTestForm(string fileName)
         {
-            var form = new Splash(true);
-            form.Show();
             Application.DoEvents();
 
             if (!string.IsNullOrEmpty(fileName))
@@ -248,22 +244,6 @@ namespace WebSurge
             Application.DoEvents();
 
             App.Configuration.WindowSettings.Accesses++;
-            if (!UnlockKey.Unlocked)
-            {
-                var displayCount = 5;
-                if (App.Configuration.WindowSettings.Accesses > 250)
-                    displayCount = 1;
-                else if (App.Configuration.WindowSettings.Accesses > 100)
-                    displayCount = 2;
-                else if (App.Configuration.WindowSettings.Accesses > 50)
-                    displayCount = 3;
-
-                if (App.Configuration.WindowSettings.Accesses % displayCount == 0)
-                {
-                    var form = new RegisterDialog();
-                    form.ShowDialog();
-                }
-            }
             
             if (StressTester != null)
                 StressTester.CancelThreads = true;
@@ -271,39 +251,6 @@ namespace WebSurge
             SaveOptions();
         }
 
-
-        private void StressTestForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            CheckForNewVersion(false);
-
-            if (!UnlockKey.IsRegistered())
-            {
-                var accessed = App.Configuration.WindowSettings.Accesses;
-                var displayCount = 10;
-
-                if (accessed > 150)
-                    displayCount = 1;
-                else if (accessed > 100)
-                    displayCount = 2;
-                else if (accessed > 70)
-                    displayCount = 4;
-                else if (accessed > 30)
-                    displayCount = 7;
-
-                if (accessed % displayCount == 0)
-                {
-                    regForm = new RegisterDialog();
-                    regForm.StartPosition = FormStartPosition.Manual;
-                    regForm.Left = Left + Width / 2 - regForm.Width / 2;
-                    regForm.Top = Top + Height / 2 - regForm.Height / 2 + 40;
-                    regForm.TopMost = true;
-
-                    Hide();
-
-                    regForm.ShowDialog();
-                }
-            }
-        }
 
         void Export(string mode)
         {
@@ -981,48 +928,6 @@ namespace WebSurge
             HtmlPreview(html);
         }
 
-        private void StressTestForm_Shown(object sender, EventArgs e)
-        {
-            if (Splash != null)
-            {
-                new Timer(p => Splash.Invoke(new Action(() =>
-                {
-                    if (Splash != null)
-                    {
-                        Splash.Close();                        
-                    }
-                })),
-                null, 1000, 
-                Timeout.Infinite);                
-            }
-            Application.DoEvents();
-        }
-
-        public void CheckForNewVersion(bool force = false)
-        {
-            var updater = new ApplicationUpdater(typeof(Program));            
-            if (updater.NewVersionAvailable(!force))
-            {
-                if (MessageBox.Show(updater.VersionInfo.Detail + "\r\n" +
-                    "Do you want to download and install this version?",
-                    updater.VersionInfo.Title,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Information) == DialogResult.Yes)
-                {
-                    ShellUtils.GoUrl(App.InstallerDownloadPage);
-                    //updater.DownloadProgressChanged += updater_DownloadProgressChanged;
-                    //ShowStatus("Downloading Update - Version " + updater.VersionInfo.Version);
-                    //updater.Download();
-                    //updater.ExecuteDownloadedFile();
-                    //ShowStatus("Download completed.");
-                    Application.Exit();
-                }
-            }
-            App.Configuration.CheckForUpdates.LastUpdateCheck = DateTime.UtcNow.Date;            
-        }
-
-
-        private RegisterDialog regForm;
 
         void AddRecentFiles(object sender = null, CancelEventArgs e = null)
         {
@@ -1217,26 +1122,10 @@ namespace WebSurge
                     AttachWatcher(FileName);                 
                 }
             }
-            else if (sender == btnAbout)
-            {
-                var splashForm = new Splash();
-                splashForm.StartPosition = FormStartPosition.Manual;
-                splashForm.Left = Left + Width / 2 - splashForm.Width / 2;
-                splashForm.Top = Top + Height / 2 - splashForm.Height / 2;
-                splashForm.Show();
-            }
             else if (sender == btnGotoWebSite)
                 ShellUtils.GoUrl(App.WebHomeUrl);
             else if (sender == btnGotoRegistration)
                 ShellUtils.GoUrl(App.PurchaseUrl);
-            else if (sender == btnRegistration)
-            {
-                var regForm = new UnlockKeyForm("Web Surge");
-                regForm.Left = Left + Width / 2 - regForm.Width / 2;
-                regForm.Top = Top + Height / 2 - regForm.Height / 2 + 40;
-                regForm.ShowDialog();
-                UpdateButtonStatus();
-            }
             else if (sender == tbExportXml || sender == btnExportXml)
                 Export("xml");
             else if (sender == tbExportJson || sender == btnExportJson)
@@ -1680,8 +1569,8 @@ any reported issues.";
             {
                 ShellUtils.GoUrl(App.UserDataPath);
             }
-            else if (sender == btnCheckForNewVersion)
-                CheckForNewVersion(true);
+            //else if (sender == btnCheckForNewVersion)
+            //    CheckForNewVersion(true);
             else if (sender == btnHelp)
                 ShellUtils.GoUrl("https://websurge.west-wind.com/docs/");            
             else if (sender == btnExit)

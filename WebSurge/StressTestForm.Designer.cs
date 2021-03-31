@@ -1752,10 +1752,8 @@
             this.Name = "StressTestForm";
             this.Help.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StressTestForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StressTestForm_FormClosed);
             this.Load += new System.EventHandler(this.StressTestForm_Load);
-            this.Shown += new System.EventHandler(this.StressTestForm_Shown);
             this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);

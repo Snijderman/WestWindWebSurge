@@ -53,7 +53,7 @@ namespace WebSurge
         public static int FreeThreadLimit = 10;
         public static int FreeSitesLimit = 20;
 
-        static RegTypes _regType = RegTypes.Free;
+        static RegTypes _regType = RegTypes.Enterprise;
 
         private static readonly object LockKey = new Object();
         private static bool RegisteredCalled = false;
@@ -64,27 +64,28 @@ namespace WebSurge
         /// <returns></returns>
         public static bool IsRegistered()
         {
-            lock (LockKey)
-            {                
-                RegisteredCalled = true;
+            return true;
+            //lock (LockKey)
+            //{                
+            //    RegisteredCalled = true;
                 
-                _unlocked = false;
-                _regType = RegTypes.Free;
+            //    _unlocked = false;
+            //    _regType = RegTypes.Free;
 
-                if (!File.Exists(RegisterFile))
-                    return false;
+            //    if (!File.Exists(RegisterFile))
+            //        return false;
 
-                string key = File.ReadAllText(RegisterFile);                
+            //    string key = File.ReadAllText(RegisterFile);                
                 
-                if (key == EncodeKey(ProKey))
-                {
-                    _regType = RegTypes.Professional;
-                    _unlocked = true;
-                    return true;
-                }
+            //    if (key == EncodeKey(ProKey))
+            //    {
+            //        _regType = RegTypes.Professional;
+            //        _unlocked = true;
+            //        return true;
+            //    }
 
-                return false;
-            }
+            //    return false;
+            //}
         }
 
 

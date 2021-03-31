@@ -53,9 +53,6 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="Westwind.Utilities, Version=3.0.49.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Westwind.Utilities.3.0.49.6\lib\net46\Westwind.Utilities.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineOptions.cs" />
@@ -70,6 +67,10 @@
     <ProjectReference Include="..\WebSurge.Core\WebSurge.Core.csproj">
       <Project>{9ffde5f2-1dbf-43df-be64-fd543f355444}</Project>
       <Name>WebSurge.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Westwind.Utilities\Westwind.Utilities.csproj">
+      <Project>{eb838760-6018-4ec5-8ec1-a2803d7432ac}</Project>
+      <Name>Westwind.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

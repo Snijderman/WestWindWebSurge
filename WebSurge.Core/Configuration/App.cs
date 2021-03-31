@@ -37,13 +37,14 @@ namespace WebSurge
                 Directory.CreateDirectory(UserDataPath);
 
             LogFile = UserDataPath + "WebSurgeErrors.log";
+/*
             VersionCheckUrl = "https://west-wind.com/files/WebSurge_Version.xml";
             InstallerDownloadUrl = "https://west-wind.com/files/WebsurgeSetup.exe";
             InstallerDownloadPage = "https://websurge.west-wind.com/download.aspx";
             WebHomeUrl = "https://websurge.west-wind.com";
             PurchaseUrl = "https://store.west-wind.com/product/order/websurge";
             DocsUrl = "https://websurge.west-wind.com/docs/";
-
+*/
             Configuration = new WebSurgeConfiguration();
             //Configuration.Initialize();
             try

@@ -61,34 +61,34 @@ namespace WebSurge
 
         public bool IsWebSurgeAllowedForUrl(string serverUrl)
         {        
-            string serverRootUrl = GetServerRootUrl(serverUrl);
+            //string serverRootUrl = GetServerRootUrl(serverUrl);
 
-            if (new Uri(serverRootUrl).IsLoopback)
-                return true;
+            //if (new Uri(serverRootUrl).IsLoopback)
+            //    return true;
 
-            var http = new HttpClient();
-            if (!string.IsNullOrEmpty(StressTester.Options.Username))
-                http.Username = StressTester.Options.Username;
-            if (!string.IsNullOrEmpty(StressTester.Options.Password))
-                http.Password = StressTester.Options.Password;
+            //var http = new HttpClient();
+            //if (!string.IsNullOrEmpty(StressTester.Options.Username))
+            //    http.Username = StressTester.Options.Username;
+            //if (!string.IsNullOrEmpty(StressTester.Options.Password))
+            //    http.Password = StressTester.Options.Password;
 
-            try
-            {
-                var url = (serverRootUrl + "/websurge-allow.txt");
-                var text = http.DownloadString(url);
-                if (http.WebResponse.StatusCode != System.Net.HttpStatusCode.OK || text.Length > 5)
-                {
-                    url = serverRootUrl + "/robots.txt";
-                    string robots = http.DownloadString(url);
-                    if (!robots.Contains("Allow: WebSurge"))
-                        return false;
-                }
-            }
-            catch(Exception ex)
-            {
-                ErrorMessage = ex.GetBaseException().Message;
-                return false;
-            }
+            //try
+            //{
+            //    var url = (serverRootUrl + "/websurge-allow.txt");
+            //    var text = http.DownloadString(url);
+            //    if (http.WebResponse.StatusCode != System.Net.HttpStatusCode.OK || text.Length > 5)
+            //    {
+            //        url = serverRootUrl + "/robots.txt";
+            //        string robots = http.DownloadString(url);
+            //        if (!robots.Contains("Allow: WebSurge"))
+            //            return false;
+            //    }
+            //}
+            //catch(Exception ex)
+            //{
+            //    ErrorMessage = ex.GetBaseException().Message;
+            //    return false;
+            //}
 
             return true;
         }

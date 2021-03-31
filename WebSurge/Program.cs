@@ -10,7 +10,6 @@ namespace WebSurge
         
         public static StressTestForm WebSurgeForm { get; set; }
 
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -76,22 +75,5 @@ namespace WebSurge
             if (res == DialogResult.No)
                 Application.Exit();
         } 
-
-        static void RunSplash(object form = null)
-        {
-            // Splash screen flag otherwise it just displays  and doesn't unload
-            var splash = new Splash(true);
-            splash.StressForm = form as StressTestForm;
-
-            ((StressTestForm)form).Splash = splash;
-
-            if (splash == null)
-                splash = new Splash(true); // Splash screen flag otherwise it just displays  and doesn't unload
-
-            splash.Visible = true;
-            splash.TopMost = true;
-            Application.Run(splash);
-        }
-
     }
 }
