@@ -243,8 +243,6 @@ namespace WebSurge
             Hide();
             Application.DoEvents();
 
-            App.Configuration.WindowSettings.Accesses++;
-            
             if (StressTester != null)
                 StressTester.CancelThreads = true;
             
